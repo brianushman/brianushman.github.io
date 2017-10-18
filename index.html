@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+
+<div style="width: 300px">
+	<div class="input-group">
+		<input type="text" class="form-control" data-bind="textInput: term">
+		<span class="input-group-addon glyphicon glyphicon glyphicon-remove" style="cursor: pointer" data-bind="click: clearTerm"></span>
+	</div>
+	<ul class="list-group" data-bind="foreach: filtered">
+		<li class="list-group-item" data-bind="text: $data"></li>
+	</ul>
+</div>
+
+<script>
+	function FoodList() {
+		var self = this;
+		self.term = ko.observable("");
+		self.foods = ko.observableArray([
+			"Added Sugars",
+			"Almond",
+			"Apple",
+			"Banana",
+			"Barley",
+			"Basil",
+			"Bran",
+			"Buckwheat",
+			"Canola Oil",
+			"Cantaloupe",
+			"Cashew",
+			"Celery",
+			"Cheese",
+			"Chia Seed",
+			"Coconut",
+			"Corn",
+			"Eggs",
+			"Garlic",
+			"Gluten",
+			"Green Bean",
+			"Green Pea",
+			"Lentil",
+			"Lima Bean",
+			"Lunch Meat",
+			"Malt",
+			"Malt Vinegar",
+			"Milk",
+			"Navy Bean",
+			"Peach",
+			"Peanut",
+			"Pineapple",
+			"Rye",
+			"Safflower",
+			"Sesame Seed",
+			"Soybean",
+			"Spinach",
+			"Strawberry",
+			"Tomato",
+			"Tuna",
+			"Vegetable Oil",
+			"Wheat",
+			"Yeast",
+			"Yogurt"			
+		]);
+		self.filtered = ko.computed(function(){
+			if(self.term().length == 0) return self.foods();
+			return self.foods().filter(function(str){ return str.toLowerCase().indexOf(self.term().toLowerCase()) !== -1;});
+		}, self);
+		
+		self.clearTerm = function() {
+			self.term("");
+		}
+	}
+	
+	ko.applyBindings(new FoodList())
+</script>
+</body>
+</html>
